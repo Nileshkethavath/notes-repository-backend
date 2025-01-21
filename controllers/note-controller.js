@@ -45,7 +45,12 @@ const createNote = async (noteId, socket) => {
 
 const updateNote = async (type, noteId, data, socket) => {
     await update(noteId, data);
-    socket.broadcast.emit(`${type}Response`, data);
+    
+    if((type === "updateNotePassword") || (type === "removeNotePassword")){
+        socket.emit(`${type}Response`, data);
+    }else{
+        socket.broadcast.to(noteId).emit(`${type}Response`, data);
+    }
 }
 
 const getNote = async (noteId, socket) => {

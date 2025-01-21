@@ -55,6 +55,9 @@ io.on('connection', (socket) => {
     getNote(noteId, socket);
   })
 
+  socket.on('joinRoom', (data) => {
+    socket.join(data.roomId);
+  })
 
   socket._onerror = (e) => {
     console.log("***",e,"***")
