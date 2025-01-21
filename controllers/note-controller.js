@@ -50,6 +50,7 @@ const updateNote = async (type, noteId, data, socket) => {
         socket.emit(`${type}Response`, data);
     }else{
         socket.broadcast.to(noteId).emit(`${type}Response`, data);
+        socket.emit('updateNoteSuccess');
     }
 }
 
